@@ -4,10 +4,6 @@ namespace blackjack
 {
     class Program
     {
-        /// <summary>
-        /// Выбирает карту
-        /// </summary>
-        /// <returns></returns>
 
         static string Cards()
         {
@@ -15,7 +11,6 @@ namespace blackjack
             string[,] cards;
             cards = new string[4, 13];
 
-            //Бубы
             cards[0, 0] = "ace";
             cards[0, 1] = "two";
             cards[0, 2] = "three";
@@ -30,7 +25,6 @@ namespace blackjack
             cards[0, 11] = "queen";
             cards[0, 12] = "king";
 
-            //Черви
             cards[1, 0] = "ace";
             cards[1, 1] = "two";
             cards[1, 2] = "three";
@@ -45,7 +39,6 @@ namespace blackjack
             cards[1, 11] = "queen";
             cards[1, 12] = "king";
 
-            //Трефы 
             cards[2, 0] = "ace";
             cards[2, 1] = "two";
             cards[2, 2] = "three";
@@ -60,7 +53,6 @@ namespace blackjack
             cards[2, 11] = "queen";
             cards[2, 12] = "king";
 
-            //Пики
             cards[3, 0] = "ace";
             cards[3, 1] = "two";
             cards[3, 2] = "three";
@@ -79,79 +71,62 @@ namespace blackjack
 
             if (card == "ace")
             {
-                //Console.WriteLine("Выпал Туз");
                 return "ace";
 
 
             }
-            if (card == "two")
+            else if (card == "two")
             {
-                //Console.WriteLine("Выпало Два");
                 return "two";
             }
-            if (card == "three")
+            else if (card == "three")
             {
-                //Console.WriteLine("Выпало Три");
                 return "three";
             }
-            if (card == "four")
+            else if (card == "four")
             {
-                //Console.WriteLine("Выпало Четыре");
                 return "four";
             }
-            if (card == "five")
+            else if (card == "five")
             {
-                //Console.WriteLine("Выпало Пять");
                 return "five";
             }
-            if (card == "six")
+            else if (card == "six")
             {
-                //Console.WriteLine("Выпало Шесть");
                 return "six";
             }
-            if (card == "seven")
+            else if (card == "seven")
             {
-                //Console.WriteLine("Выпало Семь");
                 return "seven";
             }
-            if (card == "eight")
+            else if (card == "eight")
             {
-                //Console.WriteLine("Выпало Восем");
                 return "eight";
             }
-            if (card == "nine")
+            else if (card == "nine")
             {
-                //Console.WriteLine("Выпало Девять");
                 return "nine";
             }
-            if (card == "ten")
+            else if (card == "ten")
             {
-                //Console.WriteLine("Выпало Десять");
                 return "ten";
             }
-            if (card == "jack")
+            else if (card == "jack")
             {
-                //Console.WriteLine("Выпал Валет");
                 return "jack";
             }
-            if (card == "queen")
+            else if (card == "queen")
             {
-                //Console.WriteLine("Выпала Дама");
                 return "queen";
             }
             else
             {
-                //Console.WriteLine("Выпал Король");
                 return "king";
             }
 
         }
 
-        /// <summary>
-        /// Считает номер карты
-        /// </summary>
-        /// <param name="result"></param>
-        /// <returns></returns>
+        
         static int numofcard(string result)
         {
             if (result == "ace")
@@ -234,13 +209,29 @@ namespace blackjack
                         for (int u = 0; ; u++)
                         {
                             Console.Write("Choose 1 or 11: ");
-                            resultnum = Convert.ToInt32(Console.ReadLine());
-                            if (resultnum != 1 || resultnum != 11)
+                            string resultstr = Console.ReadLine();
+                            if (int.TryParse(resultstr, out _))
                             {
-                                Console.WriteLine("You entered the wrong number.");
+                                resultnum = Convert.ToInt32(resultstr);
+                                if (resultnum == 1)
+                                {
+                                    break;
+                                }
+                                else if (resultnum == 11)
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("You entered the wrong number.");
+                                    continue;
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("You entered the wrong format, numeric value is exoected.");
                                 continue;
                             }
-                            else break;
                         }
 
                     }
@@ -284,17 +275,33 @@ namespace blackjack
                         for (int u = 0; ; u++)
                         {
                             Console.Write("Choose 1 or 11: ");
-                            resultnum = Convert.ToInt32(Console.ReadLine());
-                            if (resultnum != 1 || resultnum != 11)
+                            string resultstr = Console.ReadLine();
+                            if (int.TryParse(resultstr, out _))
                             {
-                                Console.WriteLine("You entered the wrong number.");
+                                resultnum = Convert.ToInt32(resultstr);
+                                if (resultnum == 1)
+                                {
+                                    break;
+                                }
+                                else if (resultnum == 11)
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("You entered the wrong number.");
+                                    continue;
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("You entered the wrong format, numeric value is exoected.");
                                 continue;
                             }
-                            else break;
                         }
                     }
                     Player = Player + resultnum;
-                    Console.WriteLine("Игрок: " + Player);
+                    Console.WriteLine("Player: " + Player);
 
 
                     //The second card of bank
@@ -332,8 +339,8 @@ namespace blackjack
                         string answer = Console.ReadLine();
                         Console.WriteLine();
 
-
-                        if (answer == "No")
+                        
+                        if (answer.ToLower() == "no")
                         {
                             Console.WriteLine("The second card of bank: " + second_card_of_bank);
                             Console.WriteLine("Bank: " + Diller);
@@ -385,7 +392,7 @@ namespace blackjack
                         }
 
                         // The third card of player
-                        else if (answer == "Yes")
+                        else if (answer.ToLower() == "yes")
                         {
                             result = Cards();
 
@@ -394,8 +401,33 @@ namespace blackjack
                             Console.WriteLine("The " + num_of_take_card + " card of player: " + result);
                             if (resultnum == 1)
                             {
-                                Console.Write("Choose 1 or 11: ");
-                                resultnum = Convert.ToInt32(Console.ReadLine());
+                                for (int u = 0; ; u++)
+                                {
+                                    Console.Write("Choose 1 or 11: ");
+                                    string resultstr = Console.ReadLine();
+                                    if (int.TryParse(resultstr, out _))
+                                    {
+                                        resultnum = Convert.ToInt32(resultstr);
+                                        if (resultnum == 1)
+                                        {
+                                            break;
+                                        }
+                                        else if (resultnum == 11)
+                                        {
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("You entered the wrong number.");
+                                            continue;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("You entered the wrong format, numeric value is exoected.");
+                                        continue;
+                                    }
+                                }
                             }
                             Player = Player + resultnum;
                             Console.WriteLine("Player: " + Player);
@@ -426,12 +458,12 @@ namespace blackjack
                     {
                         break;
                     }
-                    Console.WriteLine();
-                    Console.WriteLine();
-                    Console.WriteLine();
-                    Console.WriteLine();
-                    Console.WriteLine();
-                    Console.WriteLine();
+
+                    for (int writeline = 0; writeline < 5; writeline++)
+                    {
+                        Console.WriteLine();
+                    }
+
 
                 }
                 break;
