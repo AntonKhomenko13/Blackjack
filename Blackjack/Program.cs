@@ -209,6 +209,9 @@ namespace blackjack
             return 0;
         }
 
+
+
+
         static void Main()
         {
             int Diller = 0;
@@ -220,32 +223,33 @@ namespace blackjack
                 {
                     string result = "";
 
-
+                    //The first card of player
                     result = Cards();
 
                     resultnum = numofcard(result);
 
-                    Console.WriteLine("Первая карта Игрока: " + result);
+                    Console.WriteLine("The first card of player: " + result);
                     if (resultnum == 1)
                     {
-                        Console.Write("Выберите 1 или 11: ");
-                        resultnum = Convert.ToInt32(Console.ReadLine());
+                        for (int u = 0; ; u++)
+                        {
+                            Console.Write("Choose 1 or 11: ");
+                            resultnum = Convert.ToInt32(Console.ReadLine());
+                            if (resultnum != 1 || resultnum != 11)
+                            {
+                                Console.WriteLine("You entered the wrong number.");
+                                continue;
+                            }
+                            else break;
+                        }
 
                     }
                     Player = Player + resultnum;
-                    Console.WriteLine("Игрок: " + Player);
-
-                    if (Player > 21)
-                    {
-                        Console.WriteLine();
-                        Console.WriteLine("Выйграл Диллер!");
-
-                        Diller = 0;
-                        Player = 0;
-                        break;
-                    }
+                    Console.WriteLine("Player: " + Player);
 
 
+
+                    //The first card of bank
                     result = Cards();
 
                     resultnum = numofcard(result);
@@ -264,41 +268,41 @@ namespace blackjack
                         Diller = Diller + resultnum;
                     }
 
-                    Console.WriteLine("Первая карта диллера: " + result);
-                    Console.WriteLine("Диллер: " + Diller);
+                    Console.WriteLine("The first card of bank: " + result);
+                    Console.WriteLine("Bank: " + Diller);
 
 
 
-
+                    //The second card of player
                     result = Cards();
 
                     resultnum = numofcard(result);
 
-                    Console.WriteLine("Вторая карта Игрока: " + result);
+                    Console.WriteLine("The second card of player: " + result);
                     if (resultnum == 1)
                     {
-                        Console.Write("Выберите 1 или 11: ");
-                        resultnum = Convert.ToInt32(Console.ReadLine());
-
+                        for (int u = 0; ; u++)
+                        {
+                            Console.Write("Choose 1 or 11: ");
+                            resultnum = Convert.ToInt32(Console.ReadLine());
+                            if (resultnum != 1 || resultnum != 11)
+                            {
+                                Console.WriteLine("You entered the wrong number.");
+                                continue;
+                            }
+                            else break;
+                        }
                     }
                     Player = Player + resultnum;
                     Console.WriteLine("Игрок: " + Player);
 
-                    if (Player > 21)
-                    {
-                        Console.WriteLine();
-                        Console.WriteLine("Выйграл Диллер!");
 
-                        Diller = 0;
-                        Player = 0;
-                        break;
-                    }
-
-
+                    //The second card of bank
                     result = Cards();
 
                     resultnum = numofcard(result);
 
+                    string second_card_of_bank = result;
 
                     if (resultnum == 1)
                     {
@@ -313,111 +317,110 @@ namespace blackjack
                         Diller = Diller + resultnum;
                     }
 
-                    Console.WriteLine("Вторая карта диллера: " + result);
-                    Console.WriteLine("Диллер: " + Diller);
+                    Console.WriteLine("Bank took 2 card");
                     resultnum = 0;
 
 
-
-
-
-                    for (int k = 3; ; k++)
+                    
+                    for (int k = 0; ; k++)
                     {
+                        int num_of_take_card = 3;
                         Console.WriteLine();
-                        Console.WriteLine("Вы хотите взять еще карту?");
-                        Console.Write("Ответ: ");
+                        Console.WriteLine("Do you want to take another card?");
+                        Console.WriteLine("Yes or No");
+                        Console.Write("Answer: ");
                         string answer = Console.ReadLine();
                         Console.WriteLine();
 
 
-                        if (answer == "Нет")
+                        if (answer == "No")
                         {
-                            Console.WriteLine("Диллеру выпало: " + Diller);
+                            Console.WriteLine("The second card of bank: " + second_card_of_bank);
+                            Console.WriteLine("Bank: " + Diller);
                             Console.WriteLine();
+                            for (int o = 0; ; o++)
+                            {
+                                if (Diller < 16)
+                                {
+                                    result = Cards();
+
+                                    resultnum = numofcard(result);
+
+
+                                    if (resultnum == 1)
+                                    {
+                                        if (Diller < 11)
+                                        {
+                                            Diller = Diller + 11;
+                                        }
+                                        else { Diller = Diller + resultnum; }
+                                    }
+                                    else
+                                    {
+                                        Diller = Diller + resultnum;
+                                    }
+
+                                    Console.WriteLine("The " + num_of_take_card + " card of bank: " + result);
+                                    Console.WriteLine("Bank: " + Diller);
+                                    num_of_take_card++;
+                                }
+                                else break;
+                            }
 
                             if (Diller > Player && Diller < 22)
                             {
-                                Console.WriteLine("Выйграл Диллер!");
+                                Console.WriteLine("Bank win!");
                             }
                             else if (Diller == Player && Diller < 22)
                             {
-                                Console.WriteLine("Ничия!");
+                                Console.WriteLine("Draw!");
                             }
                             else
                             {
-                                Console.WriteLine("Выйграл Игрок!");
+                                Console.WriteLine("Player win!");
                             }
                             Diller = 0;
                             Player = 0;
                             break;
                         }
 
-                        else
+                        // The third card of player
+                        else if (answer == "Yes")
                         {
                             result = Cards();
 
                             resultnum = numofcard(result);
 
-                            Console.WriteLine(k + " карта Игрока: " + result);
+                            Console.WriteLine("The " + num_of_take_card + " card of player: " + result);
                             if (resultnum == 1)
                             {
-                                Console.Write("Выберите 1 или 11: ");
+                                Console.Write("Choose 1 or 11: ");
                                 resultnum = Convert.ToInt32(Console.ReadLine());
-
                             }
                             Player = Player + resultnum;
-                            Console.WriteLine("Игрок: " + Player);
+                            Console.WriteLine("Player: " + Player);
 
                             if (Player > 21)
                             {
                                 Console.WriteLine();
-                                Console.WriteLine("Выйграл Диллер!");
+                                Console.WriteLine("Bank win!");
 
                                 Diller = 0;
                                 Player = 0;
                                 break;
-                            }
-
-
-                            result = Cards();
-
-                            resultnum = numofcard(result);
-
-
-                            if (resultnum == 1)
-                            {
-                                if (Diller < 11)
-                                {
-                                    Diller = Diller + 11;
-                                }
-                                else { Diller = Diller + resultnum; }
-                            }
-                            else
-                            {
-                                Diller = Diller + resultnum;
-                            }
-
-                            Console.WriteLine(k + " карта диллера: " + Diller);
-                            Console.WriteLine("Диллер: " + Diller);
-
+                            }                            
+                            num_of_take_card++;
                         }
-
-
-                        if (Diller > 21)
+                        else
                         {
-                            Console.WriteLine();
-                            Console.WriteLine("Выйграл Игрок!");
-                            Diller = 0;
-                            Player = 0;
-                            break;
+                            Console.WriteLine("There is no such answer. Try again.");
+
                         }
-
-
                     }
 
                     Console.WriteLine();
-                    Console.WriteLine("Если хотите выйти напишите 'Exit'");
-                    Console.WriteLine("Если хотите остаться для следужего раунда нажмите 'Enter'");
+                    Console.WriteLine("If you want to leave write 'Exit'");
+                    Console.WriteLine("If you want to stay for a next round click 'Enter'");
                     string Exit = Console.ReadLine();
                     if (Exit == "Exit")
                     {
